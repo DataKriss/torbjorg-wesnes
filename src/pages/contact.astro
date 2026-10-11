@@ -1,0 +1,104 @@
+---
+import BaseHead from '../components/BaseHead.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import SoundCloudIcon from '../assets/soundcloud.svg';
+import BandcampIcon from '../assets/bandcamp.svg';
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <BaseHead
+      title="Contact | Torbjørg Wesnes"
+      description="Get in touch with Torbjørg Wesnes for concerts, commissions, and collaborations."
+    />
+  </head>
+  <body>
+    <Header />
+    <main>
+      <h1>Contact</h1>
+      <p>
+        For concert bookings, commissions, or collaborations,
+        please get in touch.
+      </p>
+
+      <p>
+        <strong>Email: </strong>
+        <a href="mailto:komponist@torbjorgwesnes.com">komponist@torbjorgwesnes.com</a>
+      </p>
+        <p>
+            <strong>Phone: </strong>
+            <a href="tel:+4796043949">+47 960 43 949</a>
+        </p>
+      <section class="socials" aria-labelledby="socials-heading">
+        <h2 id="socials-heading">Connect &amp; listen</h2>
+        <p>Follow my latest projects and explore my music.</p>
+        <ul class="social-links">
+          <li>
+            <a href="https://www.instagram.com/torbjorgfw/" target="_blank" rel="noopener noreferrer">
+              <svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                <rect x="3" y="3" width="18" height="18" rx="5" />
+                <circle cx="12" cy="12" r="4" />
+                <circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none" />
+              </svg>
+              <span>Instagram</span>
+              <span class="sr-only"> (opens in a new tab)</span>
+            </a>
+          </li>
+          <li>
+            <a href="https://soundcloud.com/user-808697497" target="_blank" rel="noopener noreferrer">
+              <SoundCloudIcon width={28} height={28} aria-hidden="true" />
+              <span>SoundCloud</span>
+              <span class="sr-only"> (opens in a new tab)</span>
+            </a>
+          </li>
+          <li>
+            <a href="https://twesnes.bandcamp.com/" target="_blank" rel="noopener noreferrer">
+              <BandcampIcon width={28} height={28} aria-hidden="true" />
+              <span>Bandcamp</span>
+              <span class="sr-only"> (opens in a new tab)</span>
+            </a>
+          </li>
+        </ul>
+      </section>
+    </main>
+    <Footer />
+  </body>
+</html>
+
+<style>
+  .socials {
+    margin-top: 2.5rem;
+    padding-top: 2rem;
+    border-top: 1px solid var(--taupe);
+  }
+  .socials h2 { font-size: 1.6rem; }
+  .social-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    list-style: none;
+    padding: 0;
+    margin: 1.25rem 0 0;
+  }
+  .social-links a {
+    display: flex;
+    align-items: center;
+    gap: 0.65rem;
+    padding: 0.75rem 1rem;
+    border: 1px solid var(--taupe);
+    border-radius: 10px;
+    color: var(--burgundy);
+    text-decoration: none;
+  }
+  .social-links a:hover { background: var(--paper); }
+  .social-links a:focus-visible { outline: 2px solid var(--burgundy); outline-offset: 3px; }
+  main {
+    background: var(--surface);
+    border-radius: 16px;
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+    box-shadow: var(--box-shadow);
+  }
+</style>

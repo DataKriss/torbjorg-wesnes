@@ -1,0 +1,76 @@
+---
+import { events } from '../data/events';
+
+const sortedEvents = [...events].sort((a, b) => a.date.localeCompare(b.date));
+const dateFor = (date: string) => new Date(`${date}T12:00:00Z`);
+const monthFormat = new Intl.DateTimeFormat('en-GB', { month: 'short', timeZone: 'UTC' });
+const fullFormat = new Intl.DateTimeFormat('en-GB', {
+	day: 'numeric', month: 'long', year: 'numeric', timeZone: 'UTC',
+});
+---
+
+<section class="calendar" aria-labelledby="events-heading" data-event-calendar>
+	<h2 id="events-heading">Upcoming events</h2>
+	<p class="intro">Concerts, performances, and premieres.</p>
+	<ul class="events">
+		{sortedEvents.map((event) => (
+			<li class="event" data-event-date={event.date}>
+				<div class="date-badge" aria-hidden="true">
+					<span>{monthFormat.format(dateFor(event.date))}</span>
+					<strong>{event.date.slice(8, 10)}</strong>
+				</div>
+				<div class="details">
+					<h3>{event.title}</h3>
+					<p class="meta"><time datetime={event.date}>{fullFormat.format(dateFor(event.date))}</time>{event.time && ` · ${event.time}`}<br />{event.location}</p>
+					{event.description && <p>{event.description}</p>}
+					{event.url && <a href={event.url} aria-label={`Event details and tickets for ${event.title}`}>Event details &amp; tickets →</a>}
+				</div>
+			</li>
+		))}
+	</ul>
+	<p class="empty" data-events-empty hidden={sortedEvents.length > 0}>New dates will be announced soon. Please check back for upcoming performances.</p>
+</section>
+
+<script>
+	function updateEvents() {
+		// Use Oslo's calendar date, so today's events remain visible all day.
+		const parts = new Intl.DateTimeFormat('en-GB', {
+			timeZone: 'Europe/Oslo', year: 'numeric', month: '2-digit', day: '2-digit',
+		}).formatToParts(new Date());
+		const part = (type: string) => parts.find((value) => value.type === type)?.value;
+		const today = `${part('year')}-${part('month')}-${part('day')}`;
+		document.querySelectorAll<HTMLElement>('[data-event-calendar]').forEach((calendar) => {
+			let visible = 0;
+			calendar.querySelectorAll<HTMLElement>('[data-event-date]').forEach((event) => {
+				event.hidden = (event.dataset.eventDate ?? '') < today;
+				if (!event.hidden) visible++;
+			});
+			const empty = calendar.querySelector<HTMLElement>('[data-events-empty]');
+			if (empty) empty.hidden = visible > 0;
+		});
+	}
+	updateEvents();
+	document.addEventListener('astro:page-load', updateEvents);
+</script>
+
+<style>
+	.calendar { margin: 2.5rem 0; }
+	h2 { font-size: 2rem; }
+	.intro, .meta { color: rgb(var(--gray)); }
+	.intro { margin-top: 0.5rem; }
+	.events { list-style: none; margin: 0; padding: 0; }
+	.event { display: flex; gap: 1.25rem; padding: 1.5rem 0; border-top: 1px solid rgb(var(--gray-light)); }
+	[hidden] { display: none !important; }
+	.date-badge { flex: 0 0 4rem; height: fit-content; padding: 0.5rem; border-radius: 10px; background: var(--taupe); text-align: center; color: var(--burgundy); }
+	.date-badge span { display: block; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.08em; }
+	.date-badge strong { display: block; font-size: 2rem; line-height: 1.2; }
+	.details { min-width: 0; }
+	h3 { font-size: 1.3rem; }
+	.details p { margin: 0.5rem 0; }
+	.meta, .details a { font-size: 0.95rem; }
+	.empty { padding: 1.5rem; border: 1px solid var(--taupe); border-radius: 12px; background: var(--surface); }
+	@media (max-width: 480px) {
+		.event { gap: 0.75rem; }
+		.date-badge { flex-basis: 3rem; }
+	}
+</style>

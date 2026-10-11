@@ -1,0 +1,92 @@
+---
+import BaseHead from '../components/BaseHead.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import { works } from '../data/works';
+import SoundCloudIcon from '../assets/soundcloud.svg';
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <BaseHead title="Works | Torbjørg Wesnes" description="Explore music and performances by composer Torbjørg Wesnes." />
+  </head>
+  <body>
+    <Header />
+    <main>
+      <h1>Works</h1>
+      <p class="intro">Explore my music through recordings and performances.</p>
+      {works.length === 0 ? (
+        <section class="empty" aria-label="Recordings">
+          <p>Recordings and performances will be shared here soon.</p>
+        </section>
+      ) : (
+        works.map((work) => (
+          <article class="work">
+            <h2>{work.title}</h2>
+            {work.year && <p class="year">{work.year}</p>}
+            {work.description && <p>{work.description}</p>}
+            {work.youtubeId && (
+              <div class="video">
+                <iframe
+                  src={`https://www.youtube-nocookie.com/embed/${encodeURIComponent(work.youtubeId)}`}
+                  title={`${work.title} — YouTube video`}
+                  width="560" height="315" loading="lazy"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                  allowfullscreen
+                />
+              </div>
+              <p class="source-link"><a href={`https://www.youtube.com/watch?v=${encodeURIComponent(work.youtubeId)}`}>Watch on YouTube →</a></p>
+            )}
+            {work.soundcloudUrl && (
+              <iframe
+                class="audio"
+                src={`https://w.soundcloud.com/player/?url=${encodeURIComponent(work.soundcloudUrl)}&color=%23783d48&auto_play=false&hide_related=true&show_comments=false&show_user=true&show_reposts=false`}
+                title={`${work.title} — SoundCloud player`}
+                width="100%" height="166" loading="lazy" allow="autoplay"
+              />
+              <p class="source-link"><a href={work.soundcloudUrl}>Listen on SoundCloud →</a></p>
+            )}
+          </article>
+        ))
+      )}
+      <section class="soundcloud-section" aria-labelledby="soundcloud-heading">
+        <h2 id="soundcloud-heading">Listen on SoundCloud</h2>
+        <p>Explore more of my music and recordings on SoundCloud.</p>
+        <a class="soundcloud-link" href="https://soundcloud.com/user-808697497" target="_blank" rel="noopener noreferrer">
+          <SoundCloudIcon width={28} height={28} aria-hidden="true" />
+          <span>Visit my SoundCloud <span aria-hidden="true">→</span></span>
+          <span class="sr-only"> (opens in a new tab)</span>
+        </a>
+      </section>
+    </main>
+    <Footer />
+  </body>
+</html>
+
+<style>
+  main {
+    background: var(--surface); border-radius: 16px;
+    margin-top: 2rem; margin-bottom: 2rem; box-shadow: var(--box-shadow);
+  }
+  .intro, .year { color: rgb(var(--gray)); }
+  .work { border-top: 1px solid var(--taupe); margin-top: 2rem; padding-top: 2rem; }
+  h2 { font-size: 1.8rem; }
+  .year { margin-top: 0; }
+  iframe { display: block; border: 0; border-radius: 10px; }
+  .video { margin-top: 1.5rem; }
+  .video iframe { width: 100%; height: auto; aspect-ratio: 16 / 9; }
+  .audio { margin-top: 1.5rem; }
+  .source-link { font-size: 0.9rem; }
+  .empty { padding: 1.5rem; margin-top: 2rem; background: var(--paper); border-radius: 10px; }
+  .empty p { margin-top: 0; }
+  .soundcloud-section {
+    margin-top: 2.5rem;
+    padding: 1.5rem;
+    background: var(--paper);
+    border: 1px solid var(--taupe);
+    border-radius: 12px;
+  }
+  .soundcloud-link { display: inline-flex; align-items: center; gap: 0.75rem; }
+</style>
+

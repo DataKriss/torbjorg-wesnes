@@ -1,0 +1,85 @@
+---
+import BaseHead from '../components/BaseHead.astro';
+import Footer from '../components/Footer.astro';
+import Header from '../components/Header.astro';
+import EventCalendar from '../components/EventCalendar.astro';
+import { SITE_DESCRIPTION, SITE_TITLE } from '../consts';
+import { Image } from 'astro:assets';
+import portrait from '../assets/portait_torbjorg.jpeg';
+---
+
+<!doctype html>
+<html lang="en">
+	<head>
+		<BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
+	</head>
+	<body>
+		<Header />
+		<main>
+			<h1>Composer & Musician</h1>
+			<h3>Torbjørg Wesnes</h3>
+			<p>
+				Welcome to my website! Here you can find information about my music, upcoming concerts, and other projects I'm working on. Feel free to explore and get in touch if you have any questions or would like to collaborate.
+			</p>
+
+			<!-- I want to place a image here -->
+			 <Image
+			 	src={portrait}
+				alt="Portrett av Torbjørg Wesnes"
+				width={600}
+				style="max-width: 100%; height: auto; border-radius: 12px; margin: 20px 0;"
+				/>
+
+			<EventCalendar />
+
+			<p> 
+				This is a template website for Torbjørg! Please look at it and let me know what you think :-D
+			</p>
+			<p>
+				Her kommer litt tull om astro som er frameworket som brukes til å lage denne nettsiden.
+			</p>
+			<p>Here are a few ideas on how to get started with the template:</p>
+			<ul>
+				<li>
+					Edit this page in <code>src/pages/index.astro</code>
+				</li>
+				<li>
+					Edit the site header items in <code>src/components/Header.astro</code>
+				</li>
+				<li>
+					Add your name to the footer in <code>src/components/Footer.astro</code>
+				</li>
+				<li>
+					Check out the included blog posts in <code>src/content/blog/</code>
+				</li>
+				<li>
+					Customize the blog post page layout in <code>src/layouts/BlogPost.astro</code>
+				</li>
+			</ul>
+			<p>
+				Have fun! If you get stuck, remember to{' '}
+				<a href="https://docs.astro.build/">read the docs</a> or{' '}
+				<a href="https://astro.build/chat">join us on Discord</a> to ask questions.
+			</p>
+			<p>
+				Looking for a blog template with a bit more personality? Check out{' '}
+				<a href="https://github.com/Charca/astro-blog-template">astro-blog-template</a> by{' '}
+				<a href="https://twitter.com/Charca">Maxi Ferreira</a>.
+			</p>
+		</main>
+		<Footer />
+	</body>
+</html>
+
+<style>
+
+  /* A solid surface keeps the text readable */
+  main {
+    background: var(--surface);
+    border-radius: 16px;
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+    box-shadow: var(--box-shadow);
+  }
+</style>
+

@@ -1,0 +1,74 @@
+---
+import SoundCloudIcon from '../assets/soundcloud.svg';
+import BandcampIcon from '../assets/bandcamp.svg';
+const today = new Date();
+---
+
+<footer>
+	&copy; {today.getFullYear()} <a href="https://www.anteria.no">Anteria AS</a>. All rights reserved.
+	<div class="social-links">
+			<a
+				href="https://www.instagram.com/torbjorgfw/"
+				target="_blank"
+				rel="noopener noreferrer"
+				aria-label="Torbjørg Wesnes on Instagram"
+			>
+				<svg
+				viewBox="0 0 24 24"
+				width="28"
+				height="28"
+				fill="none"
+				stroke="currentColor"
+				stroke-width="2"
+				aria-hidden="true"
+				>
+				<rect x="3" y="3" width="18" height="18" rx="5" />
+				<circle cx="12" cy="12" r="4" />
+				<circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none" />
+				</svg>
+			</a>
+			<a
+			href="https://soundcloud.com/user-808697497"
+			target="_blank"
+			rel="noopener noreferrer"
+			aria-label="Torbjørg Wesnes on SoundCloud"
+			>
+			<SoundCloudIcon width={28} height={28} aria-hidden="true" />
+			</a>
+
+			<a
+			href="https://twesnes.bandcamp.com/"
+			target="_blank"
+			rel="noopener noreferrer"
+			aria-label="T Wesnes on Bandcamp"
+			>
+			<BandcampIcon width={28} height={28} aria-hidden="true" />
+			</a>
+		</div>
+</footer>
+<style>
+	footer {
+		padding: 2em 1em 6em 1em;
+		background: var(--charcoal);
+		color: var(--paper);
+		text-align: center;
+	}
+	
+	footer a {
+		color: inherit;
+		}
+	.social-links {
+		display: flex;
+		justify-content: center;
+		gap: 1em;
+		margin-top: 1em;
+	}
+	.social-links a {
+		text-decoration: none;
+		color: var(--paper);
+	}
+	.social-links a:hover {
+		color: var(--taupe);
+	}
+</style>
+
