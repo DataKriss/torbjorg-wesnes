@@ -96,21 +96,22 @@ import BandcampIcon from '../assets/bandcamp.svg';
 		display: flex;
 		align-items: center;
 		flex-wrap: nowrap;
+		min-width: 0;
 	}
-	.internal-links a {
+	.internal-links :global(a) {
 		white-space: nowrap;
 	}
 	nav a:focus-visible {
 		outline: 2px solid var(--burgundy);
 		outline-offset: 2px;
 	}
-	nav a {
+	nav :global(a) {
 		padding: 1em 0.5em;
 		color: var(--charcoal);
 		border-bottom: 4px solid transparent;
 		text-decoration: none;
 	}
-	nav a.active {
+	nav :global(a.active) {
 		text-decoration: none;
 		border-bottom-color: var(--accent);
 	}
@@ -130,20 +131,22 @@ import BandcampIcon from '../assets/bandcamp.svg';
 			padding: 0.5rem;
 		}
 		.internal-links {
+			display: grid;
+			grid-template-columns: repeat(5, minmax(0, 1fr));
 			width: 100%;
-			justify-content: center;
 			border-top: 1px solid var(--taupe);
 		}
-		.internal-links a {
-			padding: 0.75rem 1rem;
+		.internal-links :global(a) {
+			padding: 0.75rem 0.25rem;
+			text-align: center;
+			font-size: 1rem;
 		}
 	}
 	@media (max-width: 480px) {
 		header { padding: 0 0.5rem; }
 		.brand { font-size: 1rem; }
 		.brand img { width: 48px; height: 48px; }
-		.internal-links { justify-content: space-evenly; }
-		.internal-links a {
+		.internal-links :global(a) {
 			font-size: 1rem;
 			padding: 0.75rem 0.35rem;
 		}
